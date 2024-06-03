@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bevkkg4jti5sh"]
+
+[ext_resource type="Script" path="res://scenes/weapons/scripts/projectile.gd" id="1_c1s3j"]
+[ext_resource type="Texture2D" uid="uid://cp3wjkyrrtnev" path="res://scenes/weapons/art/spr_beam1.png" id="1_uf8eb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcjc"]
+size = Vector2(2, 12)
+
+[node name="Projectile" type="Area2D"]
+script = ExtResource("1_c1s3j")
+speed = 800.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_uf8eb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ipcjc")
+
+[node name="TimeoutTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
