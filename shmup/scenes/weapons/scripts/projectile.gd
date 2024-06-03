@@ -7,7 +7,7 @@ class_name Projectile
 @onready var timeout: Timer = $TimeoutTimer
 
 func _ready() -> void:
-	timeout.timeout.connect(self._on_timer_timeout)
+	timeout.timeout.connect(_on_timer_timeout)
 
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta

@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://o2cpuad5geqe"]
+[gd_scene load_steps=6 format=3 uid="uid://o2cpuad5geqe"]
 
 [ext_resource type="Script" path="res://scenes/player/scripts/player.gd" id="1_e3avg"]
 [ext_resource type="Texture2D" uid="uid://coeap7koi3ybf" path="res://scenes/player/art/spr_player.png" id="1_iyabw"]
 [ext_resource type="PackedScene" uid="uid://bevkkg4jti5sh" path="res://scenes/weapons/projectile.tscn" id="2_p6s0w"]
+[ext_resource type="AudioStream" uid="uid://bw3yhky1yy6kp" path="res://scenes/weapons/audio/sfx/sfx_sounds_high5.wav" id="4_xw3lh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4a1vx"]
 radius = 6.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 100
+motion_mode = 1
 script = ExtResource("1_e3avg")
+movement_speed = 250.0
 projectile_scene = ExtResource("2_p6s0w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -17,3 +20,12 @@ shape = SubResource("CircleShape2D_4a1vx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_iyabw")
+
+[node name="ProjectileAudioStream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_xw3lh")
+volume_db = -7.836
+pitch_scale = 1.48
+
+[node name="ProjectileCooldown" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
