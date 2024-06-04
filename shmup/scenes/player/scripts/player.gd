@@ -2,6 +2,14 @@ extends CharacterBody2D
 class_name Player
 
 @export var movement_speed : float = 300.0
+@export var projectile_cooldown_time : float:
+	get:
+		return projectile_cooldown_time
+	set(value):
+		projectile_cooldown_time = value
+		if projectile_cooldown != null:
+			projectile_cooldown.wait_time = value
+
 @export var projectile_offset : Vector2 = Vector2(0, -4)
 @export var projectile_scene : PackedScene
 
@@ -15,6 +23,7 @@ func _ready() -> void:
 		_can_fire_projectile = true
 
 	if projectile_cooldown != null:
+		projectile_cooldown.wait_time = projectile_cooldown_time
 		projectile_cooldown.timeout.connect(_on_projectile_cooldown_timeout)
 
 func _physics_process(_delta: float) -> void:
