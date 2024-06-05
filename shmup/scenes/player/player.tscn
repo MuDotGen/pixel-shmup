@@ -23,8 +23,7 @@ texture = ExtResource("1_iyabw")
 
 [node name="ProjectileAudioStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_xw3lh")
-volume_db = -7.836
-pitch_scale = 1.48
+volume_db = -12.18
 
 [node name="ProjectileCooldown" type="Timer" parent="."]
 wait_time = 0.1
