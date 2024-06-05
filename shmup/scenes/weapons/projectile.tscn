@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcjc"]
 size = Vector2(2, 12)
 
-[node name="Projectile" type="Area2D"]
+[node name="Projectile" type="Area2D" groups=["Projectiles"]]
 script = ExtResource("1_c1s3j")
 speed = 800.0
 

@@ -14,6 +14,7 @@ zoom = Vector2(4, 4)
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_3lhpn")
+volume_db = -10.0
 autoplay = true
 
 [node name="Enemy1" parent="." instance=ExtResource("3_05ak3")]

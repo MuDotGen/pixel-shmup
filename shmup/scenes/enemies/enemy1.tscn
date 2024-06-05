@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://sxe7bdtah7ne"]
+[gd_scene load_steps=11 format=3 uid="uid://sxe7bdtah7ne"]
 
 [ext_resource type="Texture2D" uid="uid://cgurlamdbnars" path="res://scenes/enemies/art/sprs_enemy1_idle.png" id="1_mrfo5"]
+[ext_resource type="Script" path="res://scenes/enemies/scripts/enemy.gd" id="1_q8ynd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dixec"]
 radius = 8.06226
@@ -56,6 +57,8 @@ animations = [{
 }]
 
 [node name="Enemy1" type="Area2D"]
+script = ExtResource("1_q8ynd")
+shaking_range = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dixec")
@@ -64,3 +67,7 @@ shape = SubResource("CircleShape2D_dixec")
 sprite_frames = SubResource("SpriteFrames_ia13y")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="ShakeTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
