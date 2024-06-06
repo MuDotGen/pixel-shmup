@@ -9,8 +9,10 @@
 [node name="Player" parent="." instance=ExtResource("1_06ig7")]
 projectile_cooldown_time = 0.1
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -132)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_3lhpn")
@@ -31,3 +33,10 @@ position = Vector2(61, -46)
 
 [node name="Enemy5" parent="." instance=ExtResource("3_05ak3")]
 position = Vector2(-62, -46)
+
+[node name="Enemy6" parent="." instance=ExtResource("3_05ak3")]
+position = Vector2(0, -100)
+scale = Vector2(2, 2)
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-320, 48, 320, 47, 320, -312, -320, -312, -320, 53)
