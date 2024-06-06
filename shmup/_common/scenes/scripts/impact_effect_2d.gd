@@ -2,23 +2,29 @@ extends Node2D
 class_name ImpactEffect2D
 
 signal shake_finished
+signal slow_motion_finished
 
 @export var shaking_range : float = 3
+@export var shaking_duration : float = 0.1
+@export var slow_motion_scale : float = 0.5
+@export var slow_motion_duration : float = 1.0
 
-@export var _is_shaking : bool = false:
+var _is_shaking : bool = false:
 	get:
 		return _is_shaking
 	set(value):
 		_is_shaking = value
-		if (!_is_shaking):
+		if (!_is_shaking and node_to_shake):
 			node_to_shake.position = Vector2(0, 0) # If the shaking is disabled, reset the sprite position
 
 @export var node_to_shake : Node2D
 
 @onready var _shake_timer : Timer = $ShakeTimer
+@onready var _slow_motion_timer : Timer = $SlowMotionTimer
 
 func _ready() -> void:
 	_shake_timer.timeout.connect(_on_ShakeTimer_timeout)
+	_slow_motion_timer.timeout.connect(_on_SlowMotionTimer_timeout)
 	pass
 
 func shake() -> void:
@@ -26,15 +32,18 @@ func shake() -> void:
 		print("ImpactEffect2D: Sprite Animation is not set.")
 		pass
 	_is_shaking = true
-	_shake_timer.start()
+	_shake_timer.start(shaking_duration)
 
+func slow_motion() -> void:
+	Engine.time_scale = slow_motion_scale
+	_slow_motion_timer.start(slow_motion_duration * slow_motion_scale)
 
 func _process(_delta: float) -> void:
 	_process_shaking()
 	pass
 
 func _process_shaking() -> void:
-	if _is_shaking:
+	if _is_shaking and node_to_shake:
 		var shake_position : Vector2 = Vector2(randf_range(-shaking_range, shaking_range), randf_range(-shaking_range, shaking_range))
 		node_to_shake.position = shake_position
 
@@ -42,6 +51,9 @@ func _on_ShakeTimer_timeout() -> void:
 	_is_shaking = false
 	shake_finished.emit()
 
+func _on_SlowMotionTimer_timeout() -> void:
+	Engine.time_scale = 1.0
+	slow_motion_finished.emit()
 
 
 # Screen Flash: Briefly flash the screen or part of the screen with a bright color (usually white or red) to indicate a hit or impact.
