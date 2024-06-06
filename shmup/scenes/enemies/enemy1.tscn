@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://sxe7bdtah7ne"]
+[gd_scene load_steps=12 format=3 uid="uid://sxe7bdtah7ne"]
 
 [ext_resource type="Texture2D" uid="uid://cgurlamdbnars" path="res://scenes/enemies/art/sprs_enemy1_idle.png" id="1_mrfo5"]
 [ext_resource type="Script" path="res://scenes/enemies/scripts/enemy.gd" id="1_q8ynd"]
+[ext_resource type="PackedScene" uid="uid://y1fexxbdqxy6" path="res://_common/scenes/impact_effect_2D.tscn" id="3_ffm5e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dixec"]
 radius = 8.06226
@@ -68,6 +69,6 @@ sprite_frames = SubResource("SpriteFrames_ia13y")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="ShakeTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
+[node name="ImpactEffect2d" parent="." node_paths=PackedStringArray("node_to_shake") instance=ExtResource("3_ffm5e")]
+shaking_range = 1.0
+node_to_shake = NodePath("../AnimatedSprite2D")
