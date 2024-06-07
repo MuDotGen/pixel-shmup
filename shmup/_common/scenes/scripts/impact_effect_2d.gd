@@ -26,11 +26,14 @@ var _is_shaking : bool = false:
 
 @onready var _slow_motion_timer : Timer = $SlowMotionTimer
 
+# Setup
 func _ready() -> void:
 	_shake_timer.timeout.connect(_on_ShakeTimer_timeout)
 	_slow_motion_timer.timeout.connect(_on_SlowMotionTimer_timeout)
 	pass
 
+
+# Public Methods
 func shake() -> void:
 	if not node_to_shake:
 		print("ImpactEffect2D: Sprite Animation is not set.")
@@ -42,6 +45,8 @@ func slow_motion() -> void:
 	Engine.time_scale = slow_motion_scale
 	_slow_motion_timer.start(slow_motion_duration * slow_motion_scale)
 
+
+# Process Frame
 func _process(_delta: float) -> void:
 	_process_shaking()
 	pass
@@ -51,6 +56,8 @@ func _process_shaking() -> void:
 		var shake_position : Vector2 = Vector2(randf_range(-shaking_range, shaking_range), randf_range(-shaking_range, shaking_range))
 		node_to_shake.position = shake_position
 
+
+# Signal Handlers
 func _on_ShakeTimer_timeout() -> void:
 	_is_shaking = false
 	shake_finished.emit()
