@@ -4,10 +4,12 @@ class_name ImpactEffect2D
 signal shake_finished
 signal slow_motion_finished
 
+@export_group("Shake")
 @export var shaking_range : float = 3
 @export var shaking_duration : float = 0.1
-@export var slow_motion_scale : float = 0.5
-@export var slow_motion_duration : float = 1.0
+@export var node_to_shake : Node2D = null
+
+@onready var _shake_timer : Timer = $ShakeTimer
 
 var _is_shaking : bool = false:
 	get:
@@ -17,9 +19,11 @@ var _is_shaking : bool = false:
 		if (!_is_shaking and node_to_shake):
 			node_to_shake.position = Vector2(0, 0) # If the shaking is disabled, reset the sprite position
 
-@export var node_to_shake : Node2D
 
-@onready var _shake_timer : Timer = $ShakeTimer
+@export_group("Slow Motion")
+@export var slow_motion_scale : float = 0.5
+@export var slow_motion_duration : float = 1.0
+
 @onready var _slow_motion_timer : Timer = $SlowMotionTimer
 
 func _ready() -> void:
