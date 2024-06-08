@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpqv6a8y51lty"]
+
+[ext_resource type="Texture2D" uid="uid://b3d2c2em4aowx" path="res://scenes/backgrounds/art/bgr_stars1.png" id="1_bpdim"]
+[ext_resource type="Script" path="res://scenes/backgrounds/scripts/parallax_background.gd" id="1_tkwg1"]
+[ext_resource type="Texture2D" uid="uid://dvxq0v80etk8g" path="res://scenes/backgrounds/art/bgr_nebulae1.png" id="2_ef1wu"]
+[ext_resource type="Texture2D" uid="uid://d127yk1woonot" path="res://scenes/backgrounds/art/bgr_planets1.png" id="3_mw40j"]
+
+[node name="ParallaxBackground" type="Node2D"]
+script = ExtResource("1_tkwg1")
+
+[node name="ParallaxStars" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(640, 1280)
+autoscroll = Vector2(0, 10)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxStars"]
+texture = ExtResource("1_bpdim")
+
+[node name="ParallaxNebulae" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.7, 0.7)
+repeat_size = Vector2(640, 1280)
+autoscroll = Vector2(0, 12)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxNebulae"]
+modulate = Color(1, 1, 1, 0.196078)
+texture = ExtResource("2_ef1wu")
+
+[node name="ParallaxPlanets" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.8, 0.8)
+repeat_size = Vector2(640, 1280)
+autoscroll = Vector2(0, 15)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxPlanets"]
+modulate = Color(0.533037, 0.533037, 0.533037, 1)
+texture = ExtResource("3_mw40j")

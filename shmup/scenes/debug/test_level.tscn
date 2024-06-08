@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://7qrftfbhhxrd"]
+[gd_scene load_steps=5 format=3 uid="uid://7qrftfbhhxrd"]
 
 [ext_resource type="PackedScene" uid="uid://o2cpuad5geqe" path="res://scenes/player/player.tscn" id="1_06ig7"]
+[ext_resource type="PackedScene" uid="uid://dpqv6a8y51lty" path="res://scenes/backgrounds/parallax_background.tscn" id="1_je6mx"]
 [ext_resource type="AudioStream" uid="uid://7cyqle1vmlnw" path="res://audio/music/5_action_chiptunes/Juhani Junkala [Retro Game Music Pack] Level 1.wav" id="2_3lhpn"]
 [ext_resource type="PackedScene" uid="uid://sxe7bdtah7ne" path="res://scenes/enemies/enemy1.tscn" id="3_05ak3"]
 
 [node name="TestLevel" type="Node2D"]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_je6mx")]
+scroll_speed_multiplier = 4.0
 
 [node name="Player" parent="." instance=ExtResource("1_06ig7")]
 projectile_cooldown_time = 0.1
@@ -39,4 +43,5 @@ position = Vector2(0, -100)
 scale = Vector2(2, 2)
 
 [node name="Line2D" type="Line2D" parent="."]
+modulate = Color(1, 1, 1, 0.0784314)
 points = PackedVector2Array(-320, 48, 320, 47, 320, -312, -320, -312, -320, 53)
