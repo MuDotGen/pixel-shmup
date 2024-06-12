@@ -6,6 +6,7 @@ extends Area2D
 @onready var _impact_effect : ImpactEffect2D = $ImpactEffect2D
 @onready var _damageable : Damageable = $Damageable
 @onready var _hp_label : Label = $HPLabel
+@onready var _damage_sfx_player : AudioStreamPlayer2D = $DamageSFXPlayer
 
 func _ready() -> void:
 	area_entered.connect(_on_Area2D_area_entered)
@@ -51,13 +52,16 @@ func _ready() -> void:
 			_hp_label.set("theme_override_colors/font_color", Color(1, 1, 1)) # Sets the color of the label to white when the hp is between 0 and max
 	)
 
-	pass
-
 func _process(_delta: float) -> void:
 	pass
 
 func _on_Area2D_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Projectiles"):
 			area.queue_free()
-			_impact_effect.shake() # Simply add whatever effect is available in ImpactEffect2D
-			_damageable.take_damage(10)
+			_take_damage(10)
+
+func _take_damage(damage_amount : int) -> void:
+	_damageable.take_damage(damage_amount)
+	_damage_sfx_player.pitch_scale = randf_range(-0.3, 0.3) + 0.3 + (1 - float(_damageable.current_hp) / float(_damageable.max_hp))
+	_damage_sfx_player.play()
+	_impact_effect.shake() # Simply add whatever effect is available in ImpactEffect2D

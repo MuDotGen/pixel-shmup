@@ -18,9 +18,9 @@ position = Vector2(0, -132)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
-[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_3lhpn")
-volume_db = -10.0
+volume_db = -15.0
 autoplay = true
 
 [node name="Enemy1" parent="." instance=ExtResource("3_05ak3")]
@@ -43,5 +43,6 @@ position = Vector2(0, -100)
 scale = Vector2(2, 2)
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.0784314)
 points = PackedVector2Array(-320, 48, 320, 47, 320, -312, -320, -312, -320, 53)
