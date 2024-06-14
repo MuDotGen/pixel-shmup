@@ -1,11 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://sxe7bdtah7ne"]
+[gd_scene load_steps=25 format=3 uid="uid://sxe7bdtah7ne"]
 
 [ext_resource type="Texture2D" uid="uid://cgurlamdbnars" path="res://scenes/enemies/art/sprs_enemy1_idle.png" id="1_mrfo5"]
 [ext_resource type="Script" path="res://scenes/enemies/scripts/enemy.gd" id="1_q8ynd"]
 [ext_resource type="PackedScene" uid="uid://y1fexxbdqxy6" path="res://_common/scenes/impact_effect_2D.tscn" id="3_ffm5e"]
 [ext_resource type="Script" path="res://_common/scripts/damageable.gd" id="4_twsiy"]
+[ext_resource type="Texture2D" uid="uid://dwpy5lmdy1xc2" path="res://scenes/enemies/art/explosions/1.png" id="4_umke3"]
 [ext_resource type="FontFile" uid="uid://cwxng3lgwhu2g" path="res://fonts/Pixeled.ttf" id="5_n225i"]
+[ext_resource type="Texture2D" uid="uid://uo6v4hjhislq" path="res://scenes/enemies/art/explosions/2.png" id="5_tuvb2"]
+[ext_resource type="Texture2D" uid="uid://ndqyjuppy658" path="res://scenes/enemies/art/explosions/3.png" id="6_ajhlu"]
 [ext_resource type="AudioStream" uid="uid://cq61b0yvr6pm1" path="res://scenes/enemies/audio/sfx_sounds_impact5.wav" id="6_yugm4"]
+[ext_resource type="Texture2D" uid="uid://e1sjpfjqvoao" path="res://scenes/enemies/art/explosions/4.png" id="7_3dukk"]
+[ext_resource type="Texture2D" uid="uid://bvw3qg7os56nb" path="res://scenes/enemies/art/explosions/5.png" id="8_1am3i"]
+[ext_resource type="Texture2D" uid="uid://dgrds8e5kw7ic" path="res://scenes/enemies/art/explosions/6.png" id="9_lpfkx"]
+[ext_resource type="Texture2D" uid="uid://cmue5fadw810v" path="res://scenes/enemies/art/explosions/7.png" id="10_0bjr7"]
+[ext_resource type="Texture2D" uid="uid://bpmgdio50uymn" path="res://scenes/enemies/art/explosions/8.png" id="11_m4l7q"]
+[ext_resource type="AudioStream" uid="uid://c7v5iengsgced" path="res://scenes/enemies/audio/sfx_exp_short_hard14.wav" id="15_atqal"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dixec"]
 radius = 8.06226
@@ -60,6 +69,38 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2xr4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_umke3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tuvb2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ajhlu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3dukk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1am3i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lpfkx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0bjr7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_m4l7q")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 10.0
+}]
+
 [node name="Enemy1" type="Area2D"]
 script = ExtResource("1_q8ynd")
 shaking_range = 1.0
@@ -70,14 +111,19 @@ script = ExtResource("4_twsiy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dixec")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="EnemySprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ia13y")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="DeathAnimation" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_e2xr4")
+animation = &"explosion"
+
 [node name="ImpactEffect2D" parent="." node_paths=PackedStringArray("node_to_shake") instance=ExtResource("3_ffm5e")]
 shaking_range = 1.0
-node_to_shake = NodePath("../AnimatedSprite2D")
+node_to_shake = NodePath("../EnemySprite")
 slow_motion_duration = 5.0
 
 [node name="HPLabel" type="Label" parent="."]
@@ -93,3 +139,6 @@ text = "100
 stream = ExtResource("6_yugm4")
 volume_db = -5.0
 max_distance = 1000.0
+
+[node name="ExplosionSFXPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_atqal")
