@@ -29,5 +29,3 @@ func _ready() -> void:
 func _multiply_scroll_speeds() -> void:
 	for i in range(_parallax_layers.size()):
 		_parallax_layers[i].autoscroll = _base_scroll_velocities[i] * scroll_speed_multiplier
-
-# Test 2

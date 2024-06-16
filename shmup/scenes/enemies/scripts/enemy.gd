@@ -47,6 +47,14 @@ func _ready() -> void:
 			_hp_label.set("theme_override_colors/font_color", Color(1, 1, 1)) # Sets the color of the label to white when the hp is between 0 and max
 	)
 
+	# Set a timer to loop and attack
+	var attack_timer: Timer = Timer.new()
+	add_child(attack_timer)
+	attack_timer.set_wait_time(5)
+	attack_timer.set_one_shot(false)
+	attack_timer.timeout.connect(_attack)
+	attack_timer.start()
+
 func _process(_delta: float) -> void:
 	pass
 
@@ -54,6 +62,13 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Projectiles"):
 			area.queue_free()
 			_take_damage(10)
+
+func _attack() -> void:
+	_enemy_sprite.play("attack1")
+	_enemy_sprite.animation_finished.connect(func() -> void:
+		_enemy_sprite.play("idle")
+	)
+	pass
 
 func _take_damage(damage_amount: int) -> void:
 	_damageable.take_damage(damage_amount)
