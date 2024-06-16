@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://sxe7bdtah7ne"]
+[gd_scene load_steps=35 format=3 uid="uid://sxe7bdtah7ne"]
 
 [ext_resource type="Texture2D" uid="uid://cgurlamdbnars" path="res://scenes/enemies/art/sprs_enemy1_idle.png" id="1_mrfo5"]
 [ext_resource type="Script" path="res://scenes/enemies/scripts/enemy.gd" id="1_q8ynd"]
 [ext_resource type="PackedScene" uid="uid://y1fexxbdqxy6" path="res://_common/scenes/impact_effect_2D.tscn" id="3_ffm5e"]
+[ext_resource type="Texture2D" uid="uid://b4rjdtaow0ya8" path="res://scenes/enemies/art/sprs_enemy1_attack1.png" id="3_orqol"]
 [ext_resource type="Script" path="res://_common/scripts/damageable.gd" id="4_twsiy"]
 [ext_resource type="Texture2D" uid="uid://dwpy5lmdy1xc2" path="res://scenes/enemies/art/explosions/1.png" id="4_umke3"]
 [ext_resource type="FontFile" uid="uid://cwxng3lgwhu2g" path="res://fonts/Pixeled.ttf" id="5_n225i"]
@@ -18,6 +19,42 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dixec"]
 radius = 8.06226
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fc8sa"]
+atlas = ExtResource("3_orqol")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p822"]
+atlas = ExtResource("3_orqol")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqdkj"]
+atlas = ExtResource("3_orqol")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m4wm"]
+atlas = ExtResource("3_orqol")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv34y"]
+atlas = ExtResource("3_orqol")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkd5p"]
+atlas = ExtResource("3_orqol")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xvax"]
+atlas = ExtResource("3_orqol")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cceh3"]
+atlas = ExtResource("3_orqol")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i64nl"]
+atlas = ExtResource("3_orqol")
+region = Rect2(256, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_arb0v"]
 atlas = ExtResource("1_mrfo5")
@@ -47,6 +84,38 @@ region = Rect2(160, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fc8sa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4p822")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqdkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m4wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv34y")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_wkd5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xvax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cceh3")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_i64nl")
+}],
+"loop": true,
+"name": &"attack1",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_arb0v")
 }, {
 "duration": 1.0,
@@ -66,7 +135,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e2xr4"]
@@ -115,6 +184,7 @@ shape = SubResource("CircleShape2D_dixec")
 sprite_frames = SubResource("SpriteFrames_ia13y")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.12779
 
 [node name="DeathAnimation" type="AnimatedSprite2D" parent="."]
 visible = false
