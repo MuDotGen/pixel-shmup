@@ -191,7 +191,7 @@ sprite_frames = SubResource("SpriteFrames_e2xr4")
 animation = &"explosion"
 
 [node name="ImpactEffect2D" parent="." node_paths=PackedStringArray("node_to_shake") instance=ExtResource("3_ffm5e")]
-shaking_range = 1.0
+shaking_range = 2.0
 node_to_shake = NodePath("../EnemySprite")
 slow_motion_duration = 5.0
 

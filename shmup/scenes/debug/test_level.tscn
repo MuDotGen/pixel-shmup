@@ -1,14 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://7qrftfbhhxrd"]
+[gd_scene load_steps=8 format=3 uid="uid://7qrftfbhhxrd"]
 
 [ext_resource type="PackedScene" uid="uid://o2cpuad5geqe" path="res://scenes/player/player.tscn" id="1_06ig7"]
 [ext_resource type="PackedScene" uid="uid://dpqv6a8y51lty" path="res://scenes/backgrounds/parallax_background.tscn" id="1_je6mx"]
 [ext_resource type="AudioStream" uid="uid://7cyqle1vmlnw" path="res://audio/music/5_action_chiptunes/Juhani Junkala [Retro Game Music Pack] Level 1.wav" id="2_3lhpn"]
 [ext_resource type="PackedScene" uid="uid://sxe7bdtah7ne" path="res://scenes/enemies/enemy1.tscn" id="3_05ak3"]
+[ext_resource type="Script" path="res://_common/scripts/path_controller_2d.gd" id="5_5i7qd"]
+
+[sub_resource type="Environment" id="Environment_y1c1j"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 1.39
+glow_hdr_threshold = 0.39
+glow_hdr_scale = 1.58
+glow_hdr_luminance_cap = 1.0
+
+[sub_resource type="Curve2D" id="Curve2D_b883i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -244, 102, 0, 0, 0, 0, -136, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 115, 22, 0, 0, 0, 0, 219, 85, 0, 0, 0, 0, 66, 126, 0, 0, 0, 0, -11, 143, 0, 0, 0, 0, -49, 145, 0, 0, 0, 0, -95, 135, 0, 0, 0, 0, -246, 102)
+}
+point_count = 10
 
 [node name="TestLevel" type="Node2D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y1c1j")
+
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_je6mx")]
 scroll_speed_multiplier = 4.0
+
+[node name="CanvasBorder" type="Line2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.0784314)
+points = PackedVector2Array(-320, 48, 320, 47, 320, -312, -320, -312, -320, 53)
 
 [node name="Player" parent="." instance=ExtResource("1_06ig7")]
 projectile_cooldown_time = 0.1
@@ -23,26 +46,87 @@ stream = ExtResource("2_3lhpn")
 volume_db = -15.0
 autoplay = true
 
-[node name="Enemy1" parent="." instance=ExtResource("3_05ak3")]
+[node name="StationaryEnemies" type="Node2D" parent="."]
+
+[node name="Enemy1" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
 position = Vector2(0, -46)
 
-[node name="Enemy2" parent="." instance=ExtResource("3_05ak3")]
+[node name="Enemy2" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
 position = Vector2(-31, -46)
 
-[node name="Enemy3" parent="." instance=ExtResource("3_05ak3")]
+[node name="Enemy3" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
 position = Vector2(31, -46)
 
-[node name="Enemy4" parent="." instance=ExtResource("3_05ak3")]
+[node name="Enemy4" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
 position = Vector2(61, -46)
 
-[node name="Enemy5" parent="." instance=ExtResource("3_05ak3")]
+[node name="Enemy5" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
 position = Vector2(-62, -46)
 
-[node name="Enemy6" parent="." instance=ExtResource("3_05ak3")]
+[node name="Enemy6" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
 position = Vector2(0, -100)
 scale = Vector2(2, 2)
 
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0.0784314)
-points = PackedVector2Array(-320, 48, 320, 47, 320, -312, -320, -312, -320, 53)
+[node name="Enemy7" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(158, -46)
+
+[node name="Enemy8" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(127, -46)
+
+[node name="Enemy9" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(189, -46)
+
+[node name="Enemy10" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(219, -46)
+
+[node name="Enemy11" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(96, -46)
+
+[node name="Enemy12" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(158, -100)
+scale = Vector2(2, 2)
+
+[node name="Enemy13" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(-155, -46)
+
+[node name="Enemy14" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(-186, -46)
+
+[node name="Enemy15" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(-124, -46)
+
+[node name="Enemy16" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(-94, -46)
+
+[node name="Enemy17" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(-217, -46)
+
+[node name="Enemy18" parent="StationaryEnemies" instance=ExtResource("3_05ak3")]
+position = Vector2(-155, -100)
+scale = Vector2(2, 2)
+
+[node name="MovingEnemies" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="MovingEnemies"]
+position = Vector2(15, -299)
+curve = SubResource("Curve2D_b883i")
+
+[node name="PathController2D" type="PathFollow2D" parent="MovingEnemies/Path2D"]
+position = Vector2(-244, 102)
+rotation = -0.588003
+rotates = false
+script = ExtResource("5_5i7qd")
+
+[node name="Enemy18" parent="MovingEnemies/Path2D/PathController2D" instance=ExtResource("3_05ak3")]
+rotation = 0.588003
+scale = Vector2(2, 2)
+
+[node name="Enemy19" parent="MovingEnemies/Path2D/PathController2D" instance=ExtResource("3_05ak3")]
+position = Vector2(54.9153, 0.554701)
+rotation = 0.588003
+scale = Vector2(2, 2)
+
+[node name="Enemy20" parent="MovingEnemies/Path2D/PathController2D" instance=ExtResource("3_05ak3")]
+position = Vector2(114.546, -0.554699)
+rotation = 0.588003
+scale = Vector2(2, 2)

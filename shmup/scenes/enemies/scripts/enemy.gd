@@ -1,5 +1,8 @@
 extends Area2D
 
+## Signal called when the enemy's hp hits zero
+signal enemy_hp_reduced_to_zero
+## Signal called when the enemy dies and is gone (just before being destroyed)
 signal enemy_died
 
 @export var shaking_range: float = 10
@@ -18,17 +21,18 @@ func _ready() -> void:
 	_death_animation.animation_finished.connect(_on_DeathAnimation_animation_finished)
 
 	_damageable.hp_reduced.connect(func(_damage: int) -> void:
-		_hp_label.text=str(_damageable.current_hp)
+		_hp_label.text = str(_damageable.current_hp)
 	)
 
 	_damageable.hp_restored.connect(func(_heal: int) -> void:
-		_hp_label.text=str(_damageable.current_hp)
+		_hp_label.text = str(_damageable.current_hp)
 		_hp_label.add_theme_color_override("max_color", Color(0, 1, 0)) # Sets the color of the label to green when the hp is max
 	)
 
 	_damageable.hp_changed.connect(func(new_hp: int, _old_hp: int) -> void:
 		if new_hp <= 0:
 			_collision_shape.queue_free()
+			enemy_hp_reduced_to_zero.emit()
 			_play_death_animation()
 			# var death_timer : Timer = Timer.new()
 			# add_child(death_timer)
@@ -94,5 +98,5 @@ func _play_death_animation() -> void:
 	_explosion_sfx_player.play()
 
 func _on_DeathAnimation_animation_finished() -> void:
-	queue_free()
 	enemy_died.emit()
+	queue_free()
