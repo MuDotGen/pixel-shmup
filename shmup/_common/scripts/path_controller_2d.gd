@@ -1,8 +1,5 @@
-extends PathFollow2D
+extends Path2D
 class_name PathController2D
-
-# TO-DO: Probably better to extend Path2D instead of PathFollow2D so that each
-# child can have its own PathFollow2D node to progress along the same path.
 
 ## The set speed the children follow on the path
 @export var _speed: float = 100
@@ -10,6 +7,11 @@ class_name PathController2D
 @export var _children_move_delay: float = 0.5 # In seconds
 ## Child nodes that will follow the path
 @export var _path_children : Array = []
+## Duration of the tween for each child to follow the path
+@export var _duration : float = 5.0
+
+# TO-DO: Make this more robust, maybe based on pixel distance and progress instead of ratio
+var _space_between : float = 0
 
 # Ready
 func _ready() -> void:
@@ -17,21 +19,28 @@ func _ready() -> void:
 	if _path_children.size() == 0:
 		var children : Array = get_children()
 		for child : Node2D in children:
-			if child is Node2D:
+			if child is PathFollow2D:
 				_path_children.append(child)
+				# When the child is destroyed, remove its reference from the list as well
 				child.tree_exiting.connect(_on_child_tree_exiting.bind(child))
 	
+	# Start moving the children along the path
+	_start_move_children_along_path()
 
-# Process
-func _process(delta: float) -> void:
-	_process_path_follow_auto_move(delta)
-	pass
-
-func _process_path_follow_auto_move(delta: float) -> void:
+func _start_move_children_along_path() -> void:
 	if _path_children.size() == 0:
 		return
 	
-	progress += delta * _speed
+	
+	for path_child : PathFollow2D in _path_children:
+		await get_tree().create_timer(_children_move_delay).timeout
+		_move_child_along_path(path_child)
+		_space_between += 0.1
+
+func _move_child_along_path(path_child : PathFollow2D) -> void:
+	var tween : Tween = get_tree().create_tween()
+	tween.tween_property(path_child, "progress_ratio", 1 - _space_between, _duration).set_trans(Tween.TRANS_QUAD)
+
 
 func _on_child_tree_exiting(child : Node2D) -> void:
 	_path_children.erase(child)
