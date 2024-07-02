@@ -13,6 +13,7 @@ z_index = 100
 motion_mode = 1
 script = ExtResource("1_e3avg")
 movement_speed = 250.0
+projectile_offset = Vector2(0, -16)
 projectile_scene = ExtResource("2_p6s0w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

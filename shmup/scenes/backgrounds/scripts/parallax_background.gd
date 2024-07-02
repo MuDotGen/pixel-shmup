@@ -7,8 +7,9 @@ extends Node2D
 		scroll_speed_multiplier = value
 		_multiply_scroll_speeds()
 
-var _parallax_layers : Array = []
-var _base_scroll_velocities : Array = []
+@export var _parallax_layers : Array[Parallax2D] = []
+
+var _base_scroll_velocities : Array[Vector2] = []
 
 func _ready() -> void:
 	# Get all children of the node of type Parallax2D if they are not set
@@ -27,5 +28,11 @@ func _ready() -> void:
 
 
 func _multiply_scroll_speeds() -> void:
+	if _parallax_layers.size() == 0:
+		return
+	
+	if _base_scroll_velocities.size() == 0:
+		return
+
 	for i in range(_parallax_layers.size()):
 		_parallax_layers[i].autoscroll = _base_scroll_velocities[i] * scroll_speed_multiplier

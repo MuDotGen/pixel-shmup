@@ -20,8 +20,9 @@ glow_hdr_luminance_cap = 1.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y1c1j")
 
-[node name="ParallaxBackground" parent="." instance=ExtResource("1_je6mx")]
+[node name="ParallaxBackground" parent="." node_paths=PackedStringArray("_parallax_layers") instance=ExtResource("1_je6mx")]
 scroll_speed_multiplier = 4.0
+_parallax_layers = [NodePath("ParallaxStars"), NodePath("ParallaxNebulae"), NodePath("ParallaxPlanets")]
 
 [node name="CanvasBorder" type="Line2D" parent="."]
 visible = false

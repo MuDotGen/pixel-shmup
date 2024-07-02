@@ -46,19 +46,43 @@ func _process_movement() -> void:
 func _process_weapon() -> void:
 	if _can_fire_projectile and Input.is_action_pressed("player_weapon_primary"):
 		_fire_projectile()
+		
 
-func _fire_projectile() -> void:
+		# ;) Cheat
+
+		# "Spreader"
+		# _fire_projectile(- PI / 8)
+		# _fire_projectile(-PI / 16)
+		# _fire_projectile(PI / 16)
+		# _fire_projectile(PI / 8)
+
+		# "Wave"
+		# _fire_projectile(0, Vector2(-8, 0))
+		# _fire_projectile(0, Vector2(-16, 0))
+		# _fire_projectile(0, Vector2(-24, 0))
+		# _fire_projectile(0, Vector2(-32, 0))
+		# _fire_projectile(0, Vector2(-40, 0))
+		# _fire_projectile(0, Vector2(8, 0))
+		# _fire_projectile(0, Vector2(16, 0))
+		# _fire_projectile(0, Vector2(24, 0))
+		# _fire_projectile(0, Vector2(32, 0))
+		# _fire_projectile(0, Vector2(40, 0))
+		
+
+func _fire_projectile(angle_offset: float = 0.0, fine_offset: Vector2 = Vector2.ZERO) -> void:
+	var projectile_angle : float = rotation + angle_offset
 	var projectile : Projectile = projectile_scene.instantiate() as Projectile
-
-	get_tree().root.add_child(projectile) # Add the projectile to the root of the scene tree so it doesn't get affected by the player's movement
-
-	projectile.global_position = self.global_position + projectile_offset
+	get_tree().root.add_child(projectile) # Set the projectile as a child of the root node so it is not affected by theh player rotation
+	projectile.global_position = global_position + projectile_offset.rotated(projectile_angle) + fine_offset # Set where the projectile will spawn
+	projectile.global_rotation = projectile_angle # Set the visual rotation of the projectile
+	projectile.direction = projectile.direction.rotated(projectile_angle).normalized() # Set the direction to move
 
 	projectile_audio.play()
 
 	# Reset the firing cooldown
 	_can_fire_projectile = false
 	projectile_cooldown.start()
+
 	pass
 
 func _on_projectile_cooldown_timeout() -> void:

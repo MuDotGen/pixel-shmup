@@ -6,7 +6,7 @@ class_name PathController2D
 ## If there are multiple children, then each one will start to follow the path one after another with this delay
 @export var _children_move_delay: float = 0.5 # In seconds
 ## Child nodes that will follow the path
-@export var _path_children : Array = []
+@export var _path_children : Array[PathFollow2D] = []
 ## Duration of the tween for each child to follow the path
 @export var _duration : float = 5.0
 
@@ -22,7 +22,9 @@ func _ready() -> void:
 			if child is PathFollow2D:
 				_path_children.append(child)
 				# When the child is destroyed, remove its reference from the list as well
-				child.tree_exiting.connect(_on_child_tree_exiting.bind(child))
+	
+	for child in _path_children:
+		child.tree_exiting.connect(_on_child_tree_exiting.bind(child))
 	
 	# Start moving the children along the path
 	_start_move_children_along_path()
