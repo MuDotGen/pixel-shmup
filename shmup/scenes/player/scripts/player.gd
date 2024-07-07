@@ -47,12 +47,20 @@ func _process_weapon() -> void:
 	if _can_fire_projectile and Input.is_action_pressed("player_weapon_primary"):
 		_fire_projectile()
 		
+		# Right Shoulder Spread
+		# _fire_projectile(- PI / 8)
+		# _fire_projectile(PI / 4, Vector2(8, 0))
+		# _fire_projectile(PI / 4, Vector2(-8, 0))
 
 		# ;) Cheat
 
 		# "Spreader"
 		# _fire_projectile(- PI / 8)
 		# _fire_projectile(-PI / 16)
+		# _fire_projectile(-PI / 4)
+		# _fire_projectile(-PI / 2)
+		# _fire_projectile(PI / 2)
+		# _fire_projectile(PI / 4)
 		# _fire_projectile(PI / 16)
 		# _fire_projectile(PI / 8)
 
@@ -62,11 +70,27 @@ func _process_weapon() -> void:
 		# _fire_projectile(0, Vector2(-24, 0))
 		# _fire_projectile(0, Vector2(-32, 0))
 		# _fire_projectile(0, Vector2(-40, 0))
+		# _fire_projectile(0, Vector2(-48, 0))
+		# _fire_projectile(0, Vector2(-56, 0))
+		# _fire_projectile(0, Vector2(-64, 0))
+		# _fire_projectile(0, Vector2(-72, 0))
+		# _fire_projectile(0, Vector2(-80, 0))
+		# _fire_projectile(0, Vector2(-88, 0))
+		# _fire_projectile(0, Vector2(-96, 0))
+		# _fire_projectile(0, Vector2(-104, 0))
 		# _fire_projectile(0, Vector2(8, 0))
 		# _fire_projectile(0, Vector2(16, 0))
 		# _fire_projectile(0, Vector2(24, 0))
 		# _fire_projectile(0, Vector2(32, 0))
 		# _fire_projectile(0, Vector2(40, 0))
+		# _fire_projectile(0, Vector2(48, 0))
+		# _fire_projectile(0, Vector2(56, 0))
+		# _fire_projectile(0, Vector2(64, 0))
+		# _fire_projectile(0, Vector2(72, 0))
+		# _fire_projectile(0, Vector2(80, 0))
+		# _fire_projectile(0, Vector2(88, 0))
+		# _fire_projectile(0, Vector2(96, 0))
+		# _fire_projectile(0, Vector2(104, 0))
 		
 
 func _fire_projectile(angle_offset: float = 0.0, fine_offset: Vector2 = Vector2.ZERO) -> void:
