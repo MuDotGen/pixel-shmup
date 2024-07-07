@@ -30,7 +30,6 @@ modulate = Color(1, 1, 1, 0.0784314)
 points = PackedVector2Array(-320, 48, 320, 47, 320, -312, -320, -312, -320, 53)
 
 [node name="Player" parent="." instance=ExtResource("1_06ig7")]
-projectile_cooldown_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -132)
