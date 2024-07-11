@@ -1,10 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://sxe7bdtah7ne"]
+[gd_scene load_steps=36 format=3 uid="uid://sxe7bdtah7ne"]
 
 [ext_resource type="Texture2D" uid="uid://cgurlamdbnars" path="res://scenes/enemies/art/sprs_enemy1_idle.png" id="1_mrfo5"]
 [ext_resource type="Script" path="res://scenes/enemies/scripts/enemy.gd" id="1_q8ynd"]
-[ext_resource type="PackedScene" uid="uid://y1fexxbdqxy6" path="res://_common/scenes/impact_effect_2D.tscn" id="3_ffm5e"]
 [ext_resource type="Texture2D" uid="uid://b4rjdtaow0ya8" path="res://scenes/enemies/art/sprs_enemy1_attack1.png" id="3_orqol"]
-[ext_resource type="Script" path="res://_common/scripts/damageable.gd" id="4_twsiy"]
+[ext_resource type="Script" path="res://_common/scripts/components/health_component.gd" id="4_twsiy"]
 [ext_resource type="Texture2D" uid="uid://dwpy5lmdy1xc2" path="res://scenes/enemies/art/explosions/1.png" id="4_umke3"]
 [ext_resource type="FontFile" uid="uid://cwxng3lgwhu2g" path="res://fonts/Pixeled.ttf" id="5_n225i"]
 [ext_resource type="Texture2D" uid="uid://uo6v4hjhislq" path="res://scenes/enemies/art/explosions/2.png" id="5_tuvb2"]
@@ -15,7 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://dgrds8e5kw7ic" path="res://scenes/enemies/art/explosions/6.png" id="9_lpfkx"]
 [ext_resource type="Texture2D" uid="uid://cmue5fadw810v" path="res://scenes/enemies/art/explosions/7.png" id="10_0bjr7"]
 [ext_resource type="Texture2D" uid="uid://bpmgdio50uymn" path="res://scenes/enemies/art/explosions/8.png" id="11_m4l7q"]
+[ext_resource type="PackedScene" uid="uid://b07mcmme7o8rg" path="res://_common/scenes/components/shake_effect_2d_component.tscn" id="13_3uruh"]
 [ext_resource type="AudioStream" uid="uid://c7v5iengsgced" path="res://scenes/enemies/audio/sfx_exp_short_hard14.wav" id="15_atqal"]
+[ext_resource type="PackedScene" uid="uid://dbmjctnalxhss" path="res://_common/scenes/components/death_2d_component.tscn" id="17_k3k3f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dixec"]
 radius = 8.06226
@@ -170,11 +171,15 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Enemy1" type="Area2D"]
+[node name="Enemy1" type="Area2D" node_paths=PackedStringArray("_collision_shape", "_shake_effect_2d_component", "_health_component", "_hp_label", "_death_2d_component")]
 script = ExtResource("1_q8ynd")
-shaking_range = 1.0
+_collision_shape = NodePath("CollisionShape2D")
+_shake_effect_2d_component = NodePath("ShakeEffect2DComponent")
+_health_component = NodePath("HealthComponent")
+_hp_label = NodePath("HPLabel")
+_death_2d_component = NodePath("Death2DComponent")
 
-[node name="Damageable" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_twsiy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -185,15 +190,25 @@ sprite_frames = SubResource("SpriteFrames_ia13y")
 animation = &"attack1"
 autoplay = "idle"
 
-[node name="DeathAnimation" type="AnimatedSprite2D" parent="."]
+[node name="ShakeEffect2DComponent" parent="." node_paths=PackedStringArray("node_to_shake", "_shake_timer") instance=ExtResource("13_3uruh")]
+shaking_range = 2.0
+node_to_shake = NodePath("../EnemySprite")
+_shake_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="ShakeEffect2DComponent"]
+
+[node name="Death2DComponent" parent="." node_paths=PackedStringArray("_death_sfx", "_death_animation", "_sprite_to_hide") instance=ExtResource("17_k3k3f")]
+_death_sfx = NodePath("ExplosionSFXPlayer")
+_death_animation = NodePath("DeathAnimation")
+_sprite_to_hide = NodePath("../EnemySprite")
+
+[node name="DeathAnimation" type="AnimatedSprite2D" parent="Death2DComponent"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_e2xr4")
 animation = &"explosion"
 
-[node name="ImpactEffect2D" parent="." node_paths=PackedStringArray("node_to_shake") instance=ExtResource("3_ffm5e")]
-shaking_range = 2.0
-node_to_shake = NodePath("../EnemySprite")
-slow_motion_duration = 5.0
+[node name="ExplosionSFXPlayer" type="AudioStreamPlayer2D" parent="Death2DComponent"]
+stream = ExtResource("15_atqal")
 
 [node name="HPLabel" type="Label" parent="."]
 offset_top = -23.0
@@ -208,6 +223,3 @@ text = "100
 stream = ExtResource("6_yugm4")
 volume_db = -5.0
 max_distance = 1000.0
-
-[node name="ExplosionSFXPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("15_atqal")

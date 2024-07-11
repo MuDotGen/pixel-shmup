@@ -1,5 +1,5 @@
 extends Node
-class_name Damageable
+class_name HealthComponent
 
 # Signals
 ## Signal emitted when health has been restored to max

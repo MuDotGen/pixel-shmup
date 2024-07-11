@@ -12,14 +12,14 @@ func _implement_use() -> void:
 		# _fire_projectile(PI / 4, Vector2(-8, 0))
 
 		# "Spreader"
-		_fire_projectile(- PI / 8)
-		_fire_projectile(-PI / 16)
-		_fire_projectile(-PI / 4)
-		_fire_projectile(-PI / 2)
-		_fire_projectile(PI / 2)
-		_fire_projectile(PI / 4)
-		_fire_projectile(PI / 16)
-		_fire_projectile(PI / 8)
+		# _fire_projectile(- PI / 8)
+		# _fire_projectile(-PI / 16)
+		# _fire_projectile(-PI / 4)
+		# _fire_projectile(-PI / 2)
+		# _fire_projectile(PI / 2)
+		# _fire_projectile(PI / 4)
+		# _fire_projectile(PI / 16)
+		# _fire_projectile(PI / 8)
 
 		# "Wave"
 		# _fire_projectile(0, Vector2(-8, 0))
