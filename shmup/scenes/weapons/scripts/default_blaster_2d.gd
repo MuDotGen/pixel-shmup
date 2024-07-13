@@ -1,6 +1,11 @@
 extends ProjectileLauncher2D
 class_name DefaultBlaster2D
+## A basic blaster weapon that fires projectiles.
+##
+## Add this to create a basic blaster weapon that fires a rapid projectile blast.
 
+
+# Virtual Method Implementation
 func _implement_use() -> void:
 		_fire_projectile()
 
@@ -49,6 +54,8 @@ func _implement_use() -> void:
 		# _fire_projectile(0, Vector2(96, 0))
 		# _fire_projectile(0, Vector2(104, 0))
 
+
+# Fire a projectile with an angle offset and position offset
 func _fire_projectile(angle_offset: float = 0.0, position_offset: Vector2 = Vector2.ZERO) -> void:
 	var projectile_angle : float = global_rotation + angle_offset
 	var projectile : Projectile = projectile_scene.instantiate() as Projectile
@@ -61,5 +68,5 @@ func _fire_projectile(angle_offset: float = 0.0, position_offset: Vector2 = Vect
 		use_sfx.play()
 
 	# Reset the firing cooldown
-	_can_use = false
-	_cooldown_timer.start()
+	# _can_use = false
+	# _cooldown_timer.start()

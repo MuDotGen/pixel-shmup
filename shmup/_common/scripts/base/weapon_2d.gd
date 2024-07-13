@@ -1,61 +1,42 @@
 extends Node2D
 class_name Weapon2D
+## A base class for 2D weapons.
+##
+## Add this script to a base Node2D to create a 2D weapon.
 
+## Signal emitted when the weapon is used.
 signal weapon_used
 
 ## Add a SFXPositional2DComponent for the SFX to play when using the weapon
 @export var use_sfx : SFXPositional2DComponent
+## Add a CooldownComponent to limit the use frequency of the weapon with a cooldown timer.
+@export var cooldown : CooldownComponent
+## The cooldown time in seconds between weapon uses. Set to 0 to disable cooldown.
+# @export var cooldown_time : float = 0.5:
+# 	get:
+# 		return cooldown_time
+# 	set(value):
+# 		cooldown_time = value
+# 		if _cooldown_timer != null:
+# 			_cooldown_timer.wait_time = value
 
-@export var cooldown_time : float = 0.5:
-	get:
-		return cooldown_time
-	set(value):
-		cooldown_time = value
-		if _cooldown_timer != null:
-			_cooldown_timer.wait_time = value
-
-# @onready var use_audio : AudioStreamPlayer2D = $ProjectileAudioStream
-@onready var _cooldown_timer : Timer = $ProjectileCooldown
+# @onready var _cooldown_timer : Timer = $ProjectileCooldown
 
 var _can_use : bool = true
 
-## Setup
-func _ready() -> void:
-	_setup_cooldown_timer()
-	# _setup_use_audio()
 
-# Cooldown Timer
-func _setup_cooldown_timer() -> void:
-	if not _cooldown_timer:
-		_cooldown_timer = Timer.new()
-		_cooldown_timer.wait_time = cooldown_time
-		add_child(_cooldown_timer)
-	
-	_cooldown_timer.timeout.connect(_on_cooldown_timeout)
-
-# # Use Audio
-# func _setup_use_audio() -> void:
-# 	if not use_audio:
-# 		use_audio = AudioStreamPlayer2D.new()
-# 		add_child(use_audio)
-
-func _on_cooldown_timeout() -> void:
-	_can_use = true
-	pass
-
-
-## Abstract Implementations in Child Classes
-func _implement_use() -> void:
-	pass
-
-
-## Public Methods
-# Use Weapon
+## Use Weapon
 func use() -> void:
-	if _can_use:
-		if cooldown_time > 0:
-			_can_use = false
-			_cooldown_timer.start()
+	if not _can_use:
+		return
 
+	var on_cooldown_complete : Callable = func() -> void:
 		weapon_used.emit()
 		_implement_use()
+
+	cooldown.conditional_completed(on_cooldown_complete)
+
+
+## Virtual Method Implemented in Child Classes
+func _implement_use() -> void:
+	pass
