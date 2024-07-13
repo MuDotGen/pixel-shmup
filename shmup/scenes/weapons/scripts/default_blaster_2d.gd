@@ -56,8 +56,9 @@ func _fire_projectile(angle_offset: float = 0.0, position_offset: Vector2 = Vect
 	projectile.global_position = global_position + position.rotated(projectile_angle) + position_offset.rotated(projectile_angle) # Set where the projectile will spawn
 	projectile.global_rotation = projectile_angle # Set the visual rotation of the projectile
 	projectile.direction = projectile.direction.rotated(projectile_angle).normalized() # Set the direction to move
-
-	use_audio.play()
+	
+	if use_sfx:
+		use_sfx.play()
 
 	# Reset the firing cooldown
 	_can_use = false

@@ -1,12 +1,15 @@
 extends Node2D
 class_name ShakeEffect2DComponent
+## A Component to shake a Node2D positionally in 2D space.
+##
+## Add this Component to a base Node2D and define a Node2D to shake.
 
 signal shake_finished
 
 @export var shaking_range : float = 3
 @export var shaking_duration : float = 0.1
 @export var node_to_shake : Node2D = null
-@export var _shake_timer : Timer = null
+@export var shake_timer : Timer = null
 
 var _is_shaking : bool = false:
 	get:
@@ -18,8 +21,8 @@ var _is_shaking : bool = false:
 
 # Setup
 func _ready() -> void:
-	if _shake_timer:
-		_shake_timer.timeout.connect(_on_shake_timer_timeout)
+	if shake_timer:
+		shake_timer.timeout.connect(_on_shake_timer_timeout)
 
 
 # Public Methods
@@ -28,7 +31,7 @@ func shake() -> void:
 		print("ShakeEffect2D: Sprite Animation is not set.")
 		pass
 	_is_shaking = true
-	_shake_timer.start(shaking_duration)
+	shake_timer.start(shaking_duration)
 
 
 # Process Frame

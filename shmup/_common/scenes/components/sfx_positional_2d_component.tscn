@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4t0fhitpxncf"]
+
+[ext_resource type="Script" path="res://_common/scripts/components/sfx_positional_2d_component.gd" id="1_smyra"]
+
+[node name="SFXPositional2DComponent" type="Node"]
+script = ExtResource("1_smyra")

@@ -190,12 +190,14 @@ sprite_frames = SubResource("SpriteFrames_ia13y")
 animation = &"attack1"
 autoplay = "idle"
 
-[node name="ShakeEffect2DComponent" parent="." node_paths=PackedStringArray("node_to_shake", "_shake_timer") instance=ExtResource("13_3uruh")]
+[node name="ShakeEffect2DComponent" parent="." node_paths=PackedStringArray("node_to_shake", "shake_timer") instance=ExtResource("13_3uruh")]
 shaking_range = 2.0
 node_to_shake = NodePath("../EnemySprite")
-_shake_timer = NodePath("Timer")
+shake_timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="ShakeEffect2DComponent"]
+wait_time = 0.1
+one_shot = true
 
 [node name="Death2DComponent" parent="." node_paths=PackedStringArray("_death_sfx", "_death_animation", "_sprite_to_hide") instance=ExtResource("17_k3k3f")]
 _death_sfx = NodePath("ExplosionSFXPlayer")

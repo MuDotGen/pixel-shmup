@@ -3,6 +3,9 @@ class_name Weapon2D
 
 signal weapon_used
 
+## Add a SFXPositional2DComponent for the SFX to play when using the weapon
+@export var use_sfx : SFXPositional2DComponent
+
 @export var cooldown_time : float = 0.5:
 	get:
 		return cooldown_time
@@ -11,7 +14,7 @@ signal weapon_used
 		if _cooldown_timer != null:
 			_cooldown_timer.wait_time = value
 
-@onready var use_audio : AudioStreamPlayer2D = $ProjectileAudioStream
+# @onready var use_audio : AudioStreamPlayer2D = $ProjectileAudioStream
 @onready var _cooldown_timer : Timer = $ProjectileCooldown
 
 var _can_use : bool = true
@@ -19,7 +22,7 @@ var _can_use : bool = true
 ## Setup
 func _ready() -> void:
 	_setup_cooldown_timer()
-	_setup_use_audio()
+	# _setup_use_audio()
 
 # Cooldown Timer
 func _setup_cooldown_timer() -> void:
@@ -30,11 +33,11 @@ func _setup_cooldown_timer() -> void:
 	
 	_cooldown_timer.timeout.connect(_on_cooldown_timeout)
 
-# Use Audio
-func _setup_use_audio() -> void:
-	if not use_audio:
-		use_audio = AudioStreamPlayer2D.new()
-		add_child(use_audio)
+# # Use Audio
+# func _setup_use_audio() -> void:
+# 	if not use_audio:
+# 		use_audio = AudioStreamPlayer2D.new()
+# 		add_child(use_audio)
 
 func _on_cooldown_timeout() -> void:
 	_can_use = true

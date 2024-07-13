@@ -16,7 +16,7 @@ signal enemy_died
 ## Add a Label to display the enemy's hp
 @export var _hp_label: Label
 
-## Add a DeathComponent for the enemy to handle death animations and sfx
+## Add a Death2DComponent for the enemy to handle death animations and sfx
 @export var _death_2d_component : Death2DComponent
 
 
