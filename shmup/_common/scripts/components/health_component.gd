@@ -1,7 +1,12 @@
 extends Node
 class_name HealthComponent
+## A Component to handle health and damage.
+##
+## Add this Component to a base Node to handle health and damage.
+## This Component emits signals when health has been restored, reduced, or changed.
+## It also emits signals when health has been maxed out or reduced to zero.
+## Can be paired with visual components to display health changes.
 
-# Signals
 ## Signal emitted when health has been restored to max
 signal hp_maxed_out
 ## Signal emitted when health has been depleted

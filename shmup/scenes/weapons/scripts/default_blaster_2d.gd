@@ -66,7 +66,3 @@ func _fire_projectile(angle_offset: float = 0.0, position_offset: Vector2 = Vect
 	
 	if use_sfx:
 		use_sfx.play()
-
-	# Reset the firing cooldown
-	# _can_use = false
-	# _cooldown_timer.start()

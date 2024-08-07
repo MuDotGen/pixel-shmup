@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://sxe7bdtah7ne"]
+[gd_scene load_steps=37 format=3 uid="uid://sxe7bdtah7ne"]
 
 [ext_resource type="Texture2D" uid="uid://cgurlamdbnars" path="res://scenes/enemies/art/sprs_enemy1_idle.png" id="1_mrfo5"]
 [ext_resource type="Script" path="res://scenes/enemies/scripts/enemy.gd" id="1_q8ynd"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bpmgdio50uymn" path="res://scenes/enemies/art/explosions/8.png" id="11_m4l7q"]
 [ext_resource type="PackedScene" uid="uid://b07mcmme7o8rg" path="res://_common/scenes/components/shake_effect_2d_component.tscn" id="13_3uruh"]
 [ext_resource type="AudioStream" uid="uid://c7v5iengsgced" path="res://scenes/enemies/audio/sfx_exp_short_hard14.wav" id="15_atqal"]
+[ext_resource type="Script" path="res://_common/scripts/components/sfx_positional_2d_component.gd" id="15_ig6mi"]
 [ext_resource type="PackedScene" uid="uid://dbmjctnalxhss" path="res://_common/scenes/components/death_2d_component.tscn" id="17_k3k3f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dixec"]
@@ -179,11 +180,11 @@ _health_component = NodePath("HealthComponent")
 _hp_label = NodePath("HPLabel")
 _death_2d_component = NodePath("Death2DComponent")
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("4_twsiy")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dixec")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_twsiy")
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ia13y")
@@ -200,7 +201,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Death2DComponent" parent="." node_paths=PackedStringArray("_death_sfx", "_death_animation", "_sprite_to_hide") instance=ExtResource("17_k3k3f")]
-_death_sfx = NodePath("ExplosionSFXPlayer")
+_death_sfx = NodePath("SFXPositional2DComponent")
 _death_animation = NodePath("DeathAnimation")
 _sprite_to_hide = NodePath("../EnemySprite")
 
@@ -209,7 +210,11 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_e2xr4")
 animation = &"explosion"
 
-[node name="ExplosionSFXPlayer" type="AudioStreamPlayer2D" parent="Death2DComponent"]
+[node name="SFXPositional2DComponent" type="Node" parent="Death2DComponent" node_paths=PackedStringArray("sfx_player")]
+script = ExtResource("15_ig6mi")
+sfx_player = NodePath("ExplosionSFXPlayer")
+
+[node name="ExplosionSFXPlayer" type="AudioStreamPlayer2D" parent="Death2DComponent/SFXPositional2DComponent"]
 stream = ExtResource("15_atqal")
 
 [node name="HPLabel" type="Label" parent="."]

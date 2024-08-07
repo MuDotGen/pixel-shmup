@@ -39,9 +39,11 @@ func die() -> void:
 			_death_animation.play("explosion")
 
 		# Play the explosion sfx
+		print(_death_sfx)
 		if _death_sfx:
 			_death_sfx.change_pitch_scale(randf_range(-0.5, 0.5) + 1)
 			_death_sfx.play()
+			print("Playing death sfx")
 
 
 func _on_frame_changed() -> void:

@@ -6,6 +6,11 @@ class_name ProjectileLauncher2D
 func _ready() -> void:
 	# If the weapon has no projectile scene, it cannot be used
 	if projectile_scene != null:
-		_can_use = true
+		can_use = true
 	else:
-		_can_use = false
+		can_use = false
+
+
+## Set the weapon's projectile scene
+func set_projectile_scene(scene : PackedScene) -> void:
+	projectile_scene = scene

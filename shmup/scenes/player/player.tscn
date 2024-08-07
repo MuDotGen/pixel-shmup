@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://o2cpuad5geqe"]
+[gd_scene load_steps=10 format=3 uid="uid://o2cpuad5geqe"]
 
 [ext_resource type="Script" path="res://scenes/player/scripts/player.gd" id="1_e3avg"]
 [ext_resource type="Texture2D" uid="uid://coeap7koi3ybf" path="res://scenes/player/art/spr_player.png" id="1_iyabw"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bw3yhky1yy6kp" path="res://scenes/weapons/audio/sfx/sfx_sounds_high5.wav" id="4_xw3lh"]
 [ext_resource type="PackedScene" uid="uid://4t0fhitpxncf" path="res://_common/scenes/components/sfx_positional_2d_component.tscn" id="5_hg3xs"]
 [ext_resource type="Script" path="res://_common/scripts/components/cooldown_component.gd" id="5_vpphk"]
+[ext_resource type="Script" path="res://_common/scripts/components/health_component.gd" id="8_ykn2y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4a1vx"]
 radius = 6.0
@@ -45,3 +46,6 @@ sfx_player = NodePath("AudioStreamPlayer2D2")
 position = Vector2(0, -4)
 stream = ExtResource("4_xw3lh")
 volume_db = -12.18
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("8_ykn2y")
